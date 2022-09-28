@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const PORT = 4000;
 const sequelize = require("../db/database")
-
+const bodyParse = require ('body-parse') 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
