@@ -2,10 +2,13 @@ const express = require("express");
 const app = express();
 const PORT = 4000;
 const sequelize = require("../db/database")
-const bodyParse = require ('body-parse') 
-
+// const bodyParse = require ('body-parse') 
+const cors = require('cors')
+ 
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// app.use(bodyParse.urlencoded({extended: true}));
 
 
 
@@ -14,24 +17,24 @@ app.post("/login", (req, res) => {
   });
 
 app.get("/api/users", (req, res) => {
-    res.send("users GET");
-  });
+  res.status(200).json({ status : "conexion back front exitosa"})})
 
 app.post("/api/users", (req, res) => {
-    res.send("users POST");
+    // res.send("users POST");
+    // res.status(200).json({ status : "conexion back front exitosa"})
   });
 
-app.get("/api/:id/messages/inbox", (req, res) => {
-    res.send(req.params.id);
+app.get("/api/:username/messages/inbox", (req, res) => {
+    res.send(req.params.username);
   });
 
-app.get("/api/:id/messages/sent", (req, res) => {
-    res.send(req.params.id);
+app.get("/api/:username/messages/sent", (req, res) => {
+    res.send(req.params.username);
   });
 
 
-app.get("/api/:id/messages/", (req, res) => {
-    res.send(req.params.id);
+app.get("/api/:username/messages/", (req, res) => {
+    res.send(req.params.username);
   });
 
 
