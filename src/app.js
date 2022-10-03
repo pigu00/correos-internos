@@ -17,11 +17,19 @@ app.post("/login", (req, res) => {
   });
 
 app.get("/api/users", (req, res) => {
-  res.status(200).json({ status : "conexion back front exitosa"})})
+  res.status(200).json({
+    apellido: "lopez",
+    nombre:"horacio",
+    usuario:"horacio lopez",
+    contrasena:"1234",
+    recontrasena:"1234",
+    pais:"argentina"
+    })
+  });
 
 app.post("/api/users", (req, res) => {
-    // res.send("users POST");
-    // res.status(200).json({ status : "conexion back front exitosa"})
+    req.params.apellido
+    console.log(req.params.apellido)
   });
 
 app.get("/api/:username/messages/inbox", (req, res) => {
@@ -42,11 +50,11 @@ app.get("/api/:username/messages/", (req, res) => {
 
 app.listen(PORT, () => console.log('servidor iniciado en ', PORT))
 
-sequelize
-    .sync({ force: true })
-    .then(() => {
-      console.log("Conexion exitosa");
-    })
-    .catch((error) => {
-      console.log("Se ha producido un error", error);
-    });
+// sequelize
+//     .sync({ force: true })
+//     .then(() => {
+//       console.log("Conexion exitosa");
+//     })
+//     .catch((error) => {
+//       console.log("Se ha producido un error", error);
+//     });
