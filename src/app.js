@@ -44,7 +44,6 @@ app.post("/api/users", async (req, res) => {
       nombre: req.body.nombre,
       nombreUsuario: req.body.nombreUsuario,
       contrasena: contrasenaHash,
-      recontrasena: req.body.recontrasena,
       pais: req.body.pais,
       ciudad: req.body.ciudad
     }).then((usuario) => {
