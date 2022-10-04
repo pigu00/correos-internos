@@ -22,23 +22,33 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.post("/login", (req, res) => {
   
   const {nombreUsuario, contrasena} = req.body
-  // const user = {nombreUsuario:nombreUsuario}
-  // console.log(user)
-  // const accessToken = generateAccessToken(user)
-  // res.headers('authorization', accessToken).json({
-  //   message:'Usuario autenticado',
-  //   token: accessToken
-  // })
+  const user = {nombreUsuario:nombreUsuario}
+  console.log(user)
+  const accessToken = generateAccessToken(user)
+  res.header('authorization', accessToken).json({
+    message:'Usuario autenticado',
+    token: accessToken
+  })
   console.log(nombreUsuario, contrasena);
 })
 
 
-// function generateAccessToken (user){
-//   return jwt.sign(user,process.env.SECRET, {expiresIn:'15m'})
-// }
-// function validateToken(req,res, next){
+function generateAccessToken (user){
+  return jwt.sign(user,process.env.SECRET, {expiresIn:'15m'})
+}
+function validateToken(req,res, next){
+ const accessToken= req.headers['authorization'] || req.query.accessToken
+ if (!accessToken) res.send('Access Denied')
+jwt.verify(accessToken, process.env.SECRET,(err, user)=>{
+  if(err){
+    res.send('Acceso denegado, token expirado')
+    
+  }else{
+    next()
+  }
+})
 
-// }
+}
   
   // //Validar si usuario existe FALTA TESTEAR CON LA BASE DE DATOS CONECTADA
   // const usuarioExiste = false;
@@ -95,7 +105,7 @@ app.get("/api/users", (req, res) => {
 //   }
 // });
 
-app.get("/api/:username/messages/inbox", (req, res) => {
+app.get("/api/:username/messages/inbox", validateToken (req, res) => {
   res.send(console.log('acceso concedido'));
 });
 
