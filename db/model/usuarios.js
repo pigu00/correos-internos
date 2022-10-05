@@ -10,7 +10,6 @@ Usuarios.init(
     nombre: DataTypes.STRING,
     nombreUsuario: DataTypes.STRING,
     contrasena: DataTypes.STRING,
-    recontrasena: DataTypes.STRING,
     pais: DataTypes.STRING,
     ciudad: DataTypes.STRING
   },
