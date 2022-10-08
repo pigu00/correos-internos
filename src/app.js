@@ -23,10 +23,31 @@ app.post("/login", async (req, res) => {
   const selectedUser = users.find((element) => {
     return element.nombreUsuario === nombreUsuario;
   });
-  console.log(selectedUser)
-
-
+  console.log(selectedUser.nombreUsuario, selectedUser.contrasena )
+  
 });
+
+  
+
+// function generateAccessToken(user) {
+//   return jwt.sign(user, process.env.SECRET, { expiresIn: "15m" });
+// }
+
+// function validateToken(req, res,next){
+// const accessToken=req.header['Autorizado']
+// if (!accessToken) res.send ('Acceso denegado' )
+
+// jwt.verify(accessToken,process.env.SECRET, (err, user)=>{
+//   if(err){
+//     res.send ('Acceso denegado, token invalido')
+//   } else{
+//     next()
+//   }
+// })
+// }
+///
+
+
 
 app.get("/api/users", (req, res) => {
   const listaUsuario = Usuarios.findAll().then((nombreUsuario) => {
@@ -59,12 +80,20 @@ app.get("/api/:username/messages/inbox", (req, res) => {
   // res.send(console.log('acceso concedido'));
 });
 
-app.get("/api/:username/messages/sent", (req, res) => {
+app.get("/api/messages/sent", (req, res) => {
   res.send(req.params.username);
 });
 
-app.get("/api/:username/messages/", (req, res) => {
-  res.send(req.params.username);
+app.post("/api/messages", (req, res) => {
+  const listaUsuario = Usuarios.findAll().then((nombreUsuario) => {
+    res.json(nombreUsuario);
+    // console.log(nombreUsuario);
+
+    console.log(req.body)
+
+
+    
+  });
 });
 
 app.listen(PORT, () => console.log("servidor iniciado en ", PORT));
