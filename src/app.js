@@ -77,12 +77,15 @@ app.post("/api/users", async (req, res) => {
   }
 });
 
-app.get("/api/:username/messages/inbox", (req, res) => {
+app.get("/api/messages/inbox", (req, res) => {
   // res.send(console.log('acceso concedido'));
 });
 
 app.get("/api/messages/sent", (req, res) => {
-  res.send(req.params.username);
+  const listaMensajesEnviados = Mensajes.findAll().then((mensajesEnviados) => {
+    res.json(mensajesEnviados);
+    console.log(mensajesEnviados);
+  });
 });
 
 app.post("/api/messages", (req, res) => {
@@ -97,6 +100,7 @@ app.post("/api/messages", (req, res) => {
         idusuario:req.body.idusuario,
         asunto: req.body.asunto,
         mensajeTexto: req.body.mensajeTexto,
+        usuarioDestino : req.body.usuarioDestino
       }).then((mensaje) => {
         res.json(mensaje);
       });

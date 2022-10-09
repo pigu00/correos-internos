@@ -9,6 +9,7 @@ Mensajes.init(
     idusuario:DataTypes.INTEGER,
     asunto: DataTypes.STRING,
     mensajeTexto: DataTypes.STRING,
+    usuarioDestino:DataTypes.INTEGER,
   },
   {
     sequelize,
