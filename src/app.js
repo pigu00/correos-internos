@@ -5,6 +5,7 @@ const sequelize = require("../db/database");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const Usuarios = require("../db/model/usuarios.js");
+const Mensajes = require("../db/model/mensajes.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -86,13 +87,23 @@ app.get("/api/messages/sent", (req, res) => {
 
 app.post("/api/messages", (req, res) => {
   const listaUsuario = Usuarios.findAll().then((nombreUsuario) => {
-    res.json(nombreUsuario);
-    // console.log(nombreUsuario);
+    // res.json(nombreUsuario);
 
-    console.log(req.body)
+    // console.log(req.body)
 
 
-    
+    try {
+      Mensajes.create({
+        idusuario:req.body.idusuario,
+        asunto: req.body.asunto,
+        mensajeTexto: req.body.mensajeTexto,
+      }).then((mensaje) => {
+        res.json(mensaje);
+      });
+    } catch (error) {
+      res.status(400).json({ msg: "Ocurrio un error almacenando el mensaje" });
+    }
+
   });
 });
 
